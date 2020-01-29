@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import TokenService from "../../../services/TokenService/TokenService";
 import UserContext from "../../../contexts/UserContext/UserContext";
 
-export default class CreateAccount extends React.Component{
+export default class EditAccount extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -14,6 +14,35 @@ export default class CreateAccount extends React.Component{
         }
     };
     static contextType = UserContext;
+
+    componentDidMount(){
+        
+        setTimeout(()=>{
+            
+            this.getAccountInfo();
+        }, 500);
+    }
+
+    getAccountInfo = ()=>{
+        let account = this.context.accounts.filter( account => account.id === Number.parseInt(this.getId()));
+        
+        if(!account[0]){
+            return;
+        };
+
+        this.setState({ 
+            url: account[0].url,
+            email_used: account[0].email_used,
+            user_name: account[0].user_name,
+            password: account[0].password
+        });
+    };
+
+    getId = ()=>{
+        let id = this.props.location.pathname.split("/");
+        
+        return id[id.length - 1];
+    }
 
     handleUrl = (e)=>{
         this.setState({ url: e.target.value });
@@ -33,9 +62,9 @@ export default class CreateAccount extends React.Component{
 
     handleSubmit = (e)=>{
         e.preventDefault();
-        
-        fetch(`http://localhost:8000/api/accounts`, {
-            method: "POST",
+
+        fetch(`http://localhost:8000/api/accounts/${this.getId()}`, {
+            method: "PATCH",
             headers: {
                 "content-type": "application/json",
                 "authorization": `bearer ${TokenService.getToken()}`
@@ -55,22 +84,24 @@ export default class CreateAccount extends React.Component{
                 return res.json();
             })
             .then( resData => {
-                this.addAccounts(resData.account);
+                this.refreshAccounts(resData.account);
             })
             .catch( err => this.setState({ error: err.error}))
-    }
-
-    addAccounts = (account)=>{
-        this.context.addAccounts(account)
-            .then( data => {
-                this.props.history.push("/user");
-            });
     };
 
+    refreshAccounts = (account)=>{
+        this.context.refreshAccounts( account, account.id)
+            .then( data=> {
+                
+                this.props.history.push("/user")
+            })
+    }
+
     render(){
+        
         return (
             <section>
-                <form onSubmit={this.handleSubmit}>
+               <form onSubmit={this.handleSubmit}>
                     <legend>New account</legend>
                     <fieldset>
 
@@ -79,12 +110,14 @@ export default class CreateAccount extends React.Component{
                             type="text"
                             placeholder="google.com"
                             onChange={this.handleUrl}
+                            value={this.state.url}
                             required></input>
 
                         <label htmlFor="new-acc-email">Email used</label>
                             <input 
                                 type="text"
                                 onChange={this.handleEmail}
+                                value={this.state.email_used}
                                 placeholder="something@email.com"
                                 ></input>
 
@@ -93,17 +126,21 @@ export default class CreateAccount extends React.Component{
                                 type="text"
                                 placeholder="Username if applicable"
                                 onChange={this.handleUserName}
+                                value={this.state.user_name}
                                 required></input>
 
                         <label htmlFor="new-acc-password">Password</label>
                             <input 
-                                type="text"
+                                type="password"
                                 onChange={this.handlePassword}
+                                value={this.state.password}
                                 required></input>
 
-                        <button type="submit">Add</button>
+                                {this.state.error ? <p>{this.state.error}</p> : ""}
+
+                        <button type="submit">Edit</button>
                     </fieldset>                    
-                </form>
+                </form> 
             </section>
         )
     }

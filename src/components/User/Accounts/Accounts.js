@@ -18,14 +18,13 @@ export default class Accounts extends React.Component{
         accounts = accounts.map( (account, index)=>{
             return (
                 <li key={index}>
-                    <Account key={index} account={account}></Account>
+                    <Account key={index} account={account} history={this.props.history} refreshUser={this.refreshUser}></Account>
                 </li>
             )
         });
 
         return accounts;
     }
-    
     render(){
         return (
             <section>

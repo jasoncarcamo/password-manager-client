@@ -7,7 +7,9 @@ const UserContext = React.createContext({
     last_name: "",
     email: "",
     accounts: [],
-    refresh: ()=>{}
+    refreshAccounts: ()=>{},
+    addAccounts: ()=>{},
+    deleteAccount: ()=>{}
 });
 
 export default UserContext;
@@ -67,12 +69,34 @@ export class UserProvider extends React.Component{
         };
     };
 
-    refreshContext = async (account)=>{
+    addAccounts = async (account)=>{
         const accounts = this.state.accounts.concat([account]);
         
         this.componentDidMount();
 
         return await accounts
+    }
+
+    refreshAccounts = async (account, id)=>{
+        this.componentDidMount();
+
+        let accounts = this.state.accounts;
+        let index = accounts.findIndex( account => account.id == id);
+
+        accounts.splice( index, 1, account);
+        
+        return await accounts;
+    }
+
+    deleteAccount= async (id)=>{
+        this.componentDidMount();
+
+        let accounts = this.state.accounts;
+        let index = accounts.findIndex( account => account.id == id);
+
+        accounts.splice( index, 1);
+        
+        return await accounts;
     }
 
     render(){
@@ -83,7 +107,9 @@ export class UserProvider extends React.Component{
             last_name: this.state.last_name,
             email: this.state.email,
             accounts: this.state.accounts,
-            refreshContext: this.refreshContext
+            addAccounts: this.addAccounts,
+            refreshAccounts: this.refreshAccounts,
+            deleteAccount: this.deleteAccount
         };
 
         return (

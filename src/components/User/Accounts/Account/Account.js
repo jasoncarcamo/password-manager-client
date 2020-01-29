@@ -1,14 +1,55 @@
 import React from "react";
+import TokenServcie from "../../../../services/TokenService/TokenService";
+import UserContext from "../../../../contexts/UserContext/UserContext";
 
 export default class Account extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            account: {}
+            account: {},
+            error: ""
         };
     };
 
+    static contextType = UserContext;
+
+    editAccount = ()=>{
+        this.props.history.push(`/user/edit-account/${this.props.account.id}`)
+    };
+
+    handleDelete = (e)=>{
+        e.preventDefault();
+
+        fetch(`http://localhost:8000/api/accounts/${this.props.account.id}`, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json",
+                "authorization": `bearer ${TokenServcie.getToken()}`
+            }
+        })
+            .then( res => {
+                if(!res.ok){
+                    return res.json().then( e => Promise.reject(e));
+                };
+
+                return res.json();
+            })
+            .then( resData => {
+                
+                this.refreshContext();
+            })
+            .catch( err => this.setState({ error: err.error}))
+    }
+
+    refreshContext = ()=>{
+        this.context.deleteAccount(this.props.account.id)
+            .then( data =>{
+                this.props.history.push("/user")
+            })
+    }
+
     render(){
+        
         return (
             <details key={this.props.index}>
                 <summary>{this.props.account.url}</summary>
@@ -17,6 +58,11 @@ export default class Account extends React.Component{
                 <p>Email: {this.props.account.email_used}</p>
                 <p>User name: {this.props.account.user_name}</p>
                 <p>Password: {this.props.account.password}</p>
+
+                <div>
+                    <button onClick={this.editAccount}>Edit</button>
+                    <button onClick={this.handleDelete}>Delete</button>
+                </div>
             </details>
         )
     }
