@@ -1,0 +1,32 @@
+#edit-account-success{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: absolute;
+    z-index: 1;
+    margin: auto;
+    width: 50%;
+    height: 50vh;
+    top: 25%;
+    left: 24.5%;
+    background-color: white;
+    text-align: center;
+    border: 1px solid black;
+}
+
+#edit-account-success button{
+    display: block;
+    margin: 1em auto 0 auto;
+    width: 6em;
+    height: 3em;
+}
+
+@media screen and (max-width: 770px){
+    #edit-account-success{
+        
+        width: 60%;
+        height: 40vh;
+        top: 23%;
+        left: 20.2%;
+    }
+}

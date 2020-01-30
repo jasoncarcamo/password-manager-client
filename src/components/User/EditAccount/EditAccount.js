@@ -1,6 +1,7 @@
 import React from "react";
 import TokenService from "../../../services/TokenService/TokenService";
 import UserContext from "../../../contexts/UserContext/UserContext";
+import "./EditAccount.css";
 
 export default class EditAccount extends React.Component{
     constructor(props){
@@ -10,6 +11,7 @@ export default class EditAccount extends React.Component{
             email_used: "",
             user_name: "",
             password: "",
+            success: false,
             error: ""
         }
     };
@@ -93,14 +95,31 @@ export default class EditAccount extends React.Component{
         this.context.refreshAccounts( account, account.id)
             .then( data=> {
                 
-                this.props.history.push("/user")
-            })
+                this.setState({
+                    success: true,
+                    url: "",
+                    email_used: "",
+                    user_name: "",
+                    password: "",
+                });
+
+            });
+    };
+
+    renderConfirmBox = ()=>{
+        return (
+            <section id="edit-account-success">
+                <p>You have successfully updated your account</p>
+                <button onClick={()=>{ this.props.history.push("/user")}}>Ok</button>
+            </section>
+        )
     }
 
     render(){
         
         return (
             <section>
+                {this.state.success ? this.renderConfirmBox() : ""}
                <form onSubmit={this.handleSubmit}>
                     <legend>New account</legend>
                     <fieldset>

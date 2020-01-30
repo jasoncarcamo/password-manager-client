@@ -1,6 +1,7 @@
 import React from 'react';
 import TokenService from "../../../services/TokenService/TokenService";
 import UserContext from "../../../contexts/UserContext/UserContext";
+import "./CreateAccount.css"
 
 export default class CreateAccount extends React.Component{
     constructor(props){
@@ -10,6 +11,7 @@ export default class CreateAccount extends React.Component{
             email_used: "",
             user_name: "",
             password: "",
+            success: false,
             error: ""
         }
     };
@@ -63,13 +65,31 @@ export default class CreateAccount extends React.Component{
     addAccounts = (account)=>{
         this.context.addAccounts(account)
             .then( data => {
-                this.props.history.push("/user");
+
+                this.setState({ 
+                    success: true,
+                    url: "",
+                    email_used: "",
+                    user_name: "",
+                    password: ""
+                })
+                
             });
     };
+
+    renderConfirmBox = ()=>{
+        return (
+            <section id="create-account-success">
+                <p>You have successfully added a new account to your list</p>
+                <button onClick={()=>{ this.props.history.push("/user")}}>Ok</button>
+            </section>
+        )
+    }
 
     render(){
         return (
             <section>
+                {this.state.success ? this.renderConfirmBox() : ""}
                 <form onSubmit={this.handleSubmit}>
                     <legend>New account</legend>
                     <fieldset>
