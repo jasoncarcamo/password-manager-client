@@ -1,0 +1,19 @@
+#user-header{
+    padding: 0;
+    height: 3.6em;
+    background-color: #f7f8fb;
+    border: .04em solid #d3ddfa;
+}
+
+#user-header > button{
+    display: block;
+    float: right;
+    right: 0;
+    width: 6em;
+    height: 2.5em;
+    border-radius: .4em;
+    border: .08em solid purple;
+    background-color: white;
+    color: purple;
+    margin: .9em .8em 0 0;
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
+import "./UserHeader.css";
 
 export class Button extends React.Component{
     render(){
@@ -22,11 +23,11 @@ export default class UserHeader extends React.Component{
 
     handleCancel = ()=>{
        this.props.history.push("/user"); 
-    }
+    };
 
     render(){
         return (
-            <section>
+            <section id="user-header">
                 <Route exact path="/user" render={(props)=><Button {...props} onClick={this.newAccountBtn} text="New +"></Button> }></Route>
 
                 <Route exact path="/user/new-account" render={(props)=><Button {...props} onClick={this.handleCancel} text="Cancel"></Button> }></Route>

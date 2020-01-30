@@ -1,3 +1,60 @@
+#create-account-section{
+    min-height: 50vh;
+    padding: 0;
+}
+
+#create-account-form{
+    width: 100%;
+    margin: 2.5em auto;
+    padding: 0;
+}
+
+#create-account-form fieldset{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding: 0 ;
+    margin: 0;
+    border: none;
+}
+
+fieldset legend{
+    text-align: center;
+}
+
+#create-account-form label{
+    width: 37em;
+    padding: 0;
+    margin: 1em auto .4em auto;
+}
+
+#create-account-form input{
+    width: 44em;
+    height: 2em;
+    padding-left: 1em;
+    margin: 0 auto;
+    border-radius: .5em;
+    border: .1em solid #b6bed3;
+}
+
+#create-account-form input:hover{
+    border: .1em solid #92aeff;
+}
+
+#create-account-submit{
+    display: block;
+    font-size: 1em;
+    width: 7.1em;
+    height: 2.4em;
+    margin: 2em auto;
+    border-radius: .6em;
+    border: none;
+    color: white;
+    background: linear-gradient(135deg,#ac8ece,#79589f);
+    
+}
+
+/* The style for the create account confirmation box starts here*/
 #create-account-success{
     display: flex;
     flex-direction: column;
@@ -22,6 +79,29 @@
 }
 
 @media screen and (max-width: 770px){
+
+    #create-account-form{
+        margin: 2.5em auto;
+        padding: 0;
+    }
+    
+    #create-account-form fieldset{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        margin: 0;
+    }
+
+    #create-account-form label {
+        width: 85%;
+        
+    }
+    
+    #create-account-form input{
+        width: 85%;
+        height: 2em;
+    }
+
     #create-account-success{
         
         width: 60%;

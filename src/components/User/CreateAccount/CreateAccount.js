@@ -57,10 +57,12 @@ export default class CreateAccount extends React.Component{
                 return res.json();
             })
             .then( resData => {
+
                 this.addAccounts(resData.account);
+
             })
-            .catch( err => this.setState({ error: err.error}))
-    }
+            .catch( err => this.setState({ error: err.error}));
+    };
 
     addAccounts = (account)=>{
         this.context.addAccounts(account)
@@ -88,11 +90,16 @@ export default class CreateAccount extends React.Component{
 
     render(){
         return (
-            <section>
+            <section id="create-account-section">
+
                 {this.state.success ? this.renderConfirmBox() : ""}
-                <form onSubmit={this.handleSubmit}>
-                    <legend>New account</legend>
+
+                <form 
+                    id="create-account-form"
+                    onSubmit={this.handleSubmit}>
+                    
                     <fieldset>
+                        <legend><h3>New account</h3></legend>
 
                         <label htmlFor="new-acc-url">Company website</label>
                         <input 
@@ -111,9 +118,9 @@ export default class CreateAccount extends React.Component{
                         <label htmlFor="new-acc-username">Username</label>
                             <input 
                                 type="text"
-                                placeholder="Username if applicable"
+                                placeholder="If applicable"
                                 onChange={this.handleUserName}
-                                required></input>
+                                ></input>
 
                         <label htmlFor="new-acc-password">Password</label>
                             <input 
@@ -121,7 +128,7 @@ export default class CreateAccount extends React.Component{
                                 onChange={this.handlePassword}
                                 required></input>
 
-                        <button type="submit">Add</button>
+                        {this.state.success ? "" : <button type="submit" id="create-account-submit">Create</button>}
                     </fieldset>                    
                 </form>
             </section>

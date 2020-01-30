@@ -55,7 +55,7 @@ export class UserProvider extends React.Component{
                     return Promise.all([userRes.json(), accountsRes.json()])
                 })
                 .then( ([userData, accountsData]) => {
-                
+                    console.log(accountsData.accounts)
                     this.setState({
                         id: userData.user.id,
                         first_name: userData.user.first_name,

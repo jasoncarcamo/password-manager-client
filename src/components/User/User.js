@@ -29,7 +29,7 @@ export default class User extends React.Component{
         if(this.props.location.pathname === "/user/new-account"){
             this.setState({ newAccount: true});
         };
-
+        console.log(this.context.accounts)
         setTimeout(()=>{
             this.setState({ accounts: this.context.accounts});
         }, 500);

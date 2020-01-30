@@ -1,11 +1,11 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import "./LandingPage.css";
 
 export default class extends React.Component{
     render(){
         return (
-            <section>
-                Landing page
+            <section id="landing-page">
+                <p>pagrlkwejrklewrnifp</p>
             </section>
         );
     };

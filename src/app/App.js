@@ -14,8 +14,11 @@ function App() {
     <section>
       <Route path="/" component={Header}></Route>
       <Route exact path="/" component={LandingPage}></Route>
+
       <Route exact path="/register" component={Register}></Route>
+
       <Route exact path="/login" component={Login}></Route>
+      
       <Route path="/user" component={User}></Route>
     </section>
   );

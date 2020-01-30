@@ -118,7 +118,7 @@ export default class EditAccount extends React.Component{
     render(){
         
         return (
-            <section>
+            <section id="edit-account-section">
                 {this.state.success ? this.renderConfirmBox() : ""}
                <form onSubmit={this.handleSubmit}>
                     <legend>New account</legend>

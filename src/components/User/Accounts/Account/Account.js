@@ -91,14 +91,14 @@ export default class Account extends React.Component{
 
     renderAccount = () => {
         return (
-            <details key={this.props.index} class="account-detail">
+            <details key={this.props.index} className="account-detail">
                 <summary>{this.props.account.url}</summary>
                 <p>Url: {this.props.account.url}</p>
                 <img src={`//logo.clearbit.com/${this.props.account.url}`} alt={this.props.account.url}></img>
                 <p>Email: {this.props.account.email_used}</p>
                 <p>User name: {this.props.account.user_name}</p>
                 <div>
-                    <p class="password-input-label">Password: <input class="account-password" type="password" value={this.props.account.password}/></p>
+                    <p className="password-input-label">Password: <input className="account-password" type="password" value={this.props.account.password} readOnly/></p>
                     <button
                         onClick={this.togglePassword}>Hide/ Show</button>
                 </div>
@@ -112,7 +112,7 @@ export default class Account extends React.Component{
     }
 
     render(){
-        
+        console.log(this.props.account)
         return (
             <>
                 {this.state.delete ? this.confirmDelete() : this.renderAccount()}
