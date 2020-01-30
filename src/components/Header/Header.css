@@ -27,6 +27,11 @@
     
 }
 
+.Link{
+    text-decoration: none;
+    color: black;
+}
+
 #nav-links{
     display: flex;
     justify-content: space-evenly;
@@ -35,8 +40,16 @@
 }
 
 #nav-links li{
+    font-size: 1.1em;
+    width: 8em;
     padding: 0;
     margin: auto;
+}
+
+#nav-links *{
+    list-style: none;
+    text-decoration: none;
+    color: black;
 }
 
 @media screen and (max-width: 770px){
@@ -50,7 +63,8 @@
     }
 
     #main-header{
-        position: absolute;
+        top: 0;
+        left: 0;
         z-index: 1;
     }
 
@@ -63,14 +77,18 @@
     #nav-links{
         display: none;
         position: absolute;
-        top: -.1em;
-        left: -.1em;
+        top: 0;
+        left: 0;
         flex-direction: column;
         width: 101vw;
         height: 100vh;
         margin: 0;
         z-index: 2;
         background-color: white;
+    }
+
+    #nav-links li{
+        text-align: center;
     }
 
     .display-nav{

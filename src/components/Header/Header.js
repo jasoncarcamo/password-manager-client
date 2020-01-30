@@ -30,13 +30,16 @@ export default class Header extends React.Component{
                 <>
 
                     <li>
-                        <NavLink to="/user" onClick={this.handleMobileNav}>My accounts</NavLink>
+                        <NavLink 
+                            to="/user" onClick={this.handleMobileNav}
+                            activeStyle={{fontWeight: "bold", fontSize: "1.2em"}}>My accounts</NavLink>
                     </li>
 
                     <li>
                         <Link 
+                            
                             to="/"
-                            onClick={this.handleSignOff} onClick={this.handleMobileNav}>Sign off</Link>
+                            onClick={this.handleSignOff} >Sign off</Link>
                     </li>
 
                 </>
@@ -45,19 +48,28 @@ export default class Header extends React.Component{
 
         return (
             <>
+
                 <li>
-                    <NavLink to="/register" onClick={this.handleMobileNav}>Register</NavLink>
+                    <NavLink 
+                        to="/login" 
+                        onClick={this.handleMobileNav}
+                        activeStyle={{fontWeight: "bold", fontSize: "1.2em"}}>Log In</NavLink>
                 </li>
 
                 <li>
-                    <NavLink to="/login" onClick={this.handleMobileNav}>Log In</NavLink>
+                    <NavLink 
+                        to="/register" 
+                        onClick={this.handleMobileNav}
+                        activeStyle={{fontWeight: "bold", fontSize: "1.2em"}}>Register</NavLink>
                 </li>
+
             </>
         );
     };
 
     handleSignOff = ()=> {
         TokenService.deleteToken();
+        this.handleMobileNav();
         this.props.history.push("/");
     };
 
@@ -73,12 +85,16 @@ export default class Header extends React.Component{
                     </button>
 
                     <h2>
-                        <Link to="/">Password Manager</Link>
+                        <Link className="Link" to="/">Password Manager</Link>
                     </h2>
 
                     <ul id="nav-links">
                         <li>
-                            <NavLink to="/" onClick={this.handleMobileNav}>Home</NavLink>
+                            <NavLink 
+                            exact
+                            to="/" 
+                            onClick={this.handleMobileNav}
+                            activeStyle={{fontWeight: "bold", fontSize: "1.2em"}}>Home</NavLink>
                         </li>
 
                         {this.hasToken()}
