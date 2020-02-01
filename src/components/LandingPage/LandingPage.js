@@ -40,7 +40,7 @@ export default class extends React.Component{
                         className="Icon" 
                         icon={faHatCowboy}
                         style={{color: "brown"}}></FontAwesomeIcon>
-                    <p>We are privately owned and will never lower ourselves by selling your information</p>
+                    <p>We are privately owned and will never lower ourselves to selling your information</p>
                 </div>
                 
 
