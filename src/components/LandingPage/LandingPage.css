@@ -1,6 +1,7 @@
 #landing-page{
     text-align: center;
     width: 100%;
+    min-height: 95vh;
     text-align: center;
     background-color: white;
     margin: 0 auto;

@@ -22,7 +22,7 @@ export default class User extends React.Component{
     static contextType = UserContext; 
 
     componentDidMount(){
-        console.log("Mounted")
+        
         if(!TokenService.hasToken()){
             return this.props.history.push("/login");
         };
@@ -31,15 +31,13 @@ export default class User extends React.Component{
             this.setState({ newAccount: true});
         };
 
-        console.log(this.context);
-
         if(this.context.accounts.length === 0){
-            console.log("No context")
+            
             setTimeout(()=>{
                 this.setState({ accounts: this.context.accounts});
             }, 500);
         } else{
-            console.log("has context")
+            
             this.setState({ accounts: this.context.accounts});
         }
 
@@ -64,7 +62,7 @@ export default class User extends React.Component{
     }
 
     render(){
-        console.log(this.state.accounts)
+        
         return (
             <section id="user-section">
                 <Route path="/user" component={UserHeader}></Route>

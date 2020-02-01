@@ -28,7 +28,7 @@ export default class Login extends React.Component{
     handleForm = (e)=>{
         e.preventDefault();
 
-        fetch("http://localhost:8000/api/login", {
+        fetch("https://still-crag-51210.herokuapp.com/api/login", {
             method: "POST",
             headers: {
                 "content-type": "application/json"

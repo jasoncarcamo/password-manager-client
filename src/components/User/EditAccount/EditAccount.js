@@ -65,7 +65,7 @@ export default class EditAccount extends React.Component{
     handleSubmit = (e)=>{
         e.preventDefault();
 
-        fetch(`http://localhost:8000/api/accounts/${this.getId()}`, {
+        fetch(`https://still-crag-51210.herokuapp.com/api/accounts/${this.getId()}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json",

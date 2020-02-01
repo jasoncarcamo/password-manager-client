@@ -36,14 +36,15 @@
 
 #nav-links{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     width: 40%;
     padding: 0;
 }
 
 #nav-links li{
     font-size: 1.1em;
-    width: 8em;
+    width: 10em;
+    text-align: center;
     padding: 0;
     margin: auto;
 }
@@ -86,7 +87,7 @@
         width: 101vw;
         height: 100vh;
         margin: 0;
-        z-index: 2;
+        z-index: 3;
         background-color: white;
     }
 

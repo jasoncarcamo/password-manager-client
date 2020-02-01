@@ -32,12 +32,12 @@ export class UserProvider extends React.Component{
     componentDidMount(){
         if(TokenService.hasToken()){
 
-            Promise.all([fetch("http://localhost:8000/api/user", {
+            Promise.all([fetch("https://still-crag-51210.herokuapp.com/api/user", {
                 headers: {
                     "content-type": "application/json",
                     "authorization": `bearer ${TokenService.getToken()}`
                 }
-            }), fetch(`http://localhost:8000/api/accounts`, {
+            }), fetch(`https://still-crag-51210.herokuapp.com/api/accounts`, {
                 headers: {
                     "content-type": "application/json",
                     "authorization": `bearer ${TokenService.getToken()}`

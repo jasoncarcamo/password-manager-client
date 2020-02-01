@@ -18,7 +18,30 @@ export default class CreateAccount extends React.Component{
     static contextType = UserContext;
 
     handleUrl = (e)=>{
+        
         this.setState({ url: e.target.value });
+    }
+
+    reWriteUrl = async (url) =>{
+        let newUrl = url;
+
+        if(newUrl.includes("://")){
+            newUrl = newUrl.substring(newUrl.indexOf("://") + 3);
+
+            this.setState({
+                url: newUrl
+            });
+        };
+
+        if(newUrl.includes("www.")){
+            newUrl = newUrl.substring(newUrl.indexOf("www.") + 4);
+
+            this.setState({
+                url: newUrl
+            });
+        };
+
+        return await newUrl;
     }
 
     handleEmail = (e)=>{
@@ -30,38 +53,43 @@ export default class CreateAccount extends React.Component{
     }
 
     handlePassword = (e)=>{
+
         this.setState({ password: e.target.value });
     }
 
     handleSubmit = (e)=>{
         e.preventDefault();
+
+        this.reWriteUrl(this.state.url)
+            .then( newUrl => {
+                fetch(`https://still-crag-51210.herokuapp.com/api/accounts`, {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",
+                        "authorization": `bearer ${TokenService.getToken()}`
+                    },
+                    body: JSON.stringify({
+                        url: this.state.url,
+                        email_used: this.state.email_used,
+                        user_name: this.state.user_name,
+                        password: this.state.password
+                    })
+                })
+                    .then( res => {
+                        if(!res.ok){
+                            return res.json().then( e => Promise.reject(e));
+                        };
+
+                        return res.json();
+                    })
+                    .then( resData => {
+
+                        this.addAccounts(resData.account);
+
+                    })
+                    .catch( err => this.setState({ error: err.error}));
+                    })        
         
-        fetch(`http://localhost:8000/api/accounts`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-                "authorization": `bearer ${TokenService.getToken()}`
-            },
-            body: JSON.stringify({
-                url: this.state.url,
-                email_used: this.state.email_used,
-                user_name: this.state.user_name,
-                password: this.state.password
-            })
-        })
-            .then( res => {
-                if(!res.ok){
-                    return res.json().then( e => Promise.reject(e));
-                };
-
-                return res.json();
-            })
-            .then( resData => {
-
-                this.addAccounts(resData.account);
-
-            })
-            .catch( err => this.setState({ error: err.error}));
     };
 
     addAccounts = (account)=>{

@@ -33,7 +33,7 @@ export default class Header extends React.Component{
                         <NavLink 
                             
                             to="/user" onClick={this.handleMobileNav}
-                            activeStyle={{fontWeight: "bold", fontSize: "1.2em"}}>My accounts</NavLink>
+                            activeStyle={{fontWeight: "bold", fontSize: "1.1em"}}>My accounts</NavLink>
                     </li>
 
                     <li>
@@ -54,14 +54,14 @@ export default class Header extends React.Component{
                     <NavLink 
                         to="/login" 
                         onClick={this.handleMobileNav}
-                        activeStyle={{fontWeight: "bold", fontSize: "1.2em"}}>Log In</NavLink>
+                        activeStyle={{fontWeight: "bold", fontSize: "1.1em"}}>Log In</NavLink>
                 </li>
 
                 <li>
                     <NavLink 
                         to="/register" 
                         onClick={this.handleMobileNav}
-                        activeStyle={{fontWeight: "bold", fontSize: "1.2em"}}>Register</NavLink>
+                        activeStyle={{fontWeight: "bold", fontSize: "1.1em"}}>Register</NavLink>
                 </li>
 
             </>

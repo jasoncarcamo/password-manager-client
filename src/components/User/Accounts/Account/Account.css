@@ -58,3 +58,16 @@ details > div button{
 .confirmation-buttons button{
     margin: 0 auto;
 }
+
+@media screen and (max-width: 770px){
+    details > div{
+        width: 85%;
+        padding: 0 auto;
+        justify-content: center;
+    }
+
+    details input {
+        width: 8em;
+        height: 2.6em;
+    }
+}

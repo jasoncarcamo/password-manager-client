@@ -84,7 +84,7 @@ fieldset legend{
 @media screen and (max-width: 770px){
 
     #edit-account-form{
-        width: 60%;
+        width: 80%;
         margin: 2.5em auto;
         padding: 0;
     }

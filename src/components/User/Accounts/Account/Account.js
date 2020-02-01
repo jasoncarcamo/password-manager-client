@@ -25,7 +25,7 @@ export default class Account extends React.Component{
     handleDelete = (e)=>{
         e.preventDefault();
 
-        fetch(`http://localhost:8000/api/accounts/${this.props.account.id}`, {
+        fetch(`https://still-crag-51210.herokuapp.com/api/accounts/${this.props.account.id}`, {
             method: "DELETE",
             headers: {
                 "content-type": "application/json",
@@ -131,7 +131,7 @@ export default class Account extends React.Component{
     }
 
     render(){
-        console.log(this.props.account)
+        
         return (
             <>
                 {this.state.delete ? this.confirmDelete() : this.renderAccount()}

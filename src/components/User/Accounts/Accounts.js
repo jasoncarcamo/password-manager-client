@@ -30,7 +30,7 @@ export default class Accounts extends React.Component{
     };
 
     render(){
-        console.log(this.state.accounts.length)
+        
         return (
             <section id="accounts-section">
                 <ul>
