@@ -1,6 +1,7 @@
 import React from "react";
 import Account from "./Account/Account";
 import {Link} from "react-router-dom";
+import "./Accounts.css";
 
 export default class Accounts extends React.Component{
     constructor(props){
@@ -31,7 +32,7 @@ export default class Accounts extends React.Component{
     render(){
         console.log(this.state.accounts.length)
         return (
-            <section>
+            <section id="accounts-section">
                 <ul>
                     {this.props.accounts.length == 0 ? <p>You do not have any accounts saved yet. Add your first one <Link to="/user/new-account">here</Link></p> : this.renderAccounts()}
                 </ul>

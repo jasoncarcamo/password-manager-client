@@ -120,9 +120,13 @@ export default class EditAccount extends React.Component{
         return (
             <section id="edit-account-section">
                 {this.state.success ? this.renderConfirmBox() : ""}
-               <form onSubmit={this.handleSubmit}>
-                    <legend>New account</legend>
+               <form 
+                id="edit-account-form"
+                onSubmit={this.handleSubmit}>
+                    
                     <fieldset>
+
+                        <legend><h3>Edititng account</h3></legend>
 
                         <label htmlFor="new-acc-url">Company website</label>
                         <input 
@@ -157,7 +161,9 @@ export default class EditAccount extends React.Component{
 
                                 {this.state.error ? <p>{this.state.error}</p> : ""}
 
-                        <button type="submit">Edit</button>
+                        <button 
+                            id="edit-account-submit"
+                            type="submit">Edit</button>
                     </fieldset>                    
                 </form> 
             </section>

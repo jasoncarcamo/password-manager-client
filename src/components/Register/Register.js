@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import TokenService from "../../services/TokenService/TokenService";
+import "./Register.css";
 
 export default class Register extends React.Component{
     constructor(props){
@@ -37,12 +38,13 @@ export default class Register extends React.Component{
     };
 
     passwordMatch = ()=>{
+        const div = document.getElementById("password-matches");
         
         if(this.state.password === this.state.confirmPassword){
-
+            div.style.backgroundColor = "green"
             return <p>Great! Your password matches</p>
         } else{
-
+            div.style.backgroundColor = "red"
             return <p>Your passwords do not match</p>
         }
         
@@ -52,19 +54,40 @@ export default class Register extends React.Component{
         
         const REGEX_UPPER_LOWER_NUMBER_SPECIAL = (/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&])[\S]+/);
 
-        if (password.length < 8) {
-          return <span className="reg_error" style={{color: 'red'}}>Password must be longer than 8 characters</span>
+        const requirements = [ 
+            <span key={0} className="reg_error" style={{color: 'gray'}}>Password must be longer than 8 characters</span>,
+            <span key={1} className="reg_error" style={{color: 'gray'}}>Password must be less than 72 characters</span>,
+            <span key={2} className="reg_error" style={{color: 'gray'}}>Password must not start or end with empty spaces</span>,
+            <span key={3} className="reg_error" style={{color: 'gray'}}>Password must contain one upper case, lower case, number and special character</span>
+        ]
+
+        if(password.length > 1){
+            if (password.length > 8) {
+                requirements[0] = <span key={0} className="reg_error" style={{color: 'green'}}>Password must be longer than 8 characters</span>
+              } else{
+      
+              }
+      
+              if (password.length < 72) {
+                requirements[1] = <span key={1} className="reg_error" style={{color: 'green'}}>Password must be less than 72 characters</span>
+              } else{
+      
+              };
+      
+              if (!password.startsWith(' ') || !password.endsWith(' ')) {
+                requirements[2] = <span key={2} className="reg_error" style={{color: 'green'}}>Password must not start or end with empty spaces</span>
+              } else{
+                
+              };
+      
+              if (!REGEX_UPPER_LOWER_NUMBER_SPECIAL.test(password)) {
+                  requirements[3] = <span key={3} className="reg_error" style={{color: 'gray'}}>Password must contain one upper case, lower case, number and special character</span>
+              } else{
+                  requirements[3] = <span key={3} className="reg_error" style={{color: 'green'}}>Password must contain one upper case, lower case, number and special character</span>
+              };
         }
-        if (password.length > 72) {
-          return <span className="reg_error" style={{color: 'orange'}}>Password must be less than 72 characters</span>
-        }
-        if (password.startsWith(' ') || password.endsWith(' ')) {
-          return <span className="reg_error" style={{color: 'orange'}}>Password must not start or end with empty spaces</span>
-        }
-        if (!REGEX_UPPER_LOWER_NUMBER_SPECIAL.test(password)) {
-          return <span className="reg_error" style={{color: 'orange'}}>Password must contain one upper case, lower case, number and special character</span>
-        }
-        return <span className="reg_error" style={{color: 'green'}}>Looking good!</span>
+        
+        return requirements
     }
 
     handleForm = (e)=>{
@@ -117,51 +140,77 @@ export default class Register extends React.Component{
 
     render(){
         return (
-            <section>
-                <form onSubmit={this.handleForm}>
-                    <fieldset>
+            <section id="register-section">
 
-                        <label htmlFor="register-first-name">First name</label>
-                        <input
-                            type="text"
-                            onChange={this.handleFirstName}
-                            required></input>
+                <h4>Register for free and never forget your passwords to any of your most used sites</h4>
+                
+                <section>
+                    <section>
+                        <p>Free</p>
+                        <p>No one will ever contact you asking for information</p>
+                        <p>Your passwords are hashed, salted, and protected from cross site scripting</p>
+                    </section>
 
-                        <label htmlFor="register-Last-name">Last name</label>
-                        <input 
-                            type="text"
-                            onChange={this.handleLastName}
-                            required></input>
+                    <form 
+                        id="register-form"
+                        onSubmit={this.handleForm}>
+                        <fieldset>
 
-                        <label htmlFor="register-email">Email</label>
-                        <input 
-                            type="email" 
-                            id="register-email" 
-                            onChange={this.handleEmail}
-                            required></input>
+                            <label htmlFor="register-first-name">First name</label>
+                            <input
+                                type="text"
+                                onChange={this.handleFirstName}
+                                placeholder="First name"
+                                required></input>
 
-                        <label htmlFor="register-password">Password</label>
-                        <input 
-                            type="password" 
-                            id="register-password" 
-                            onChange={this.handlePassword}
-                            required></input>
-                        {this.state.password ? this.validatePassword(this.state.password) : ""}
+                            <label htmlFor="register-Last-name">Last name</label>
+                            <input 
+                                type="text"
+                                onChange={this.handleLastName}
+                                placeholder="Last name"
+                                required></input>
 
-                        <label htmlFor="register-confirm-password">Retype your password</label>
-                        <input 
-                            type="password"
-                            id="register-confirm-password"
-                            onChange={this.handleconfirmPassword}
-                            required></input>
-                        {this.state.password && this.state.confirmPassword ? this.passwordMatch() : ""}
+                            <label htmlFor="register-email">Email</label>
+                            <input 
+                                type="email" 
+                                id="register-email" 
+                                onChange={this.handleEmail}
+                                placeholder="Email"
+                                required></input>
+
+                            <label htmlFor="register-password">Password</label>
+                            <input 
+                                type="password" 
+                                id="register-password" 
+                                onChange={this.handlePassword}
+                                placeholder="Password"
+                                required></input>
+                            
+                            <div id="password-confirm-box">
+                                {this.validatePassword(this.state.password)}
+                            </div>
+
+                            <label htmlFor="register-confirm-password">Retype your password</label>
+                            <input 
+                                type="password"
+                                id="register-confirm-password"
+                                onChange={this.handleconfirmPassword}
+                                placeholder="Retype your password"
+                                required></input>
+                            <div id="password-matches"></div>
+                            {this.state.password && this.state.confirmPassword ? this.passwordMatch() : ""}
 
 
-                        {this.state.error ? this.errorHandler(this.state.error) : ""}
+                            {this.state.error ? this.errorHandler(this.state.error) : ""}
 
-                        <button type="submit">Sign Up</button>
-                    </fieldset>
-                </form>
+                            <button 
+                            id="register-submit"
+                            type="submit">Sign Up</button>
+                        </fieldset>
+                    </form>
+                </section>
+
+                
             </section>
         );
     };

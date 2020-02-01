@@ -9,7 +9,8 @@ const UserContext = React.createContext({
     accounts: [],
     refreshAccounts: ()=>{},
     addAccounts: ()=>{},
-    deleteAccount: ()=>{}
+    deleteAccount: ()=>{},
+    logIn: ()=>{}
 });
 
 export default UserContext;
@@ -55,7 +56,7 @@ export class UserProvider extends React.Component{
                     return Promise.all([userRes.json(), accountsRes.json()])
                 })
                 .then( ([userData, accountsData]) => {
-                    console.log(accountsData.accounts)
+                    
                     this.setState({
                         id: userData.user.id,
                         first_name: userData.user.first_name,
@@ -70,9 +71,10 @@ export class UserProvider extends React.Component{
     };
 
     addAccounts = async (account)=>{
-        const accounts = this.state.accounts.concat([account]);
-        
         this.componentDidMount();
+
+        const accounts = this.state.accounts.concat([account]);     
+        
 
         return await accounts
     }
@@ -99,6 +101,10 @@ export class UserProvider extends React.Component{
         return await accounts;
     }
 
+    logIn = () =>{
+        this.componentDidMount();
+    }
+
     render(){
         
         const value = {
@@ -109,7 +115,8 @@ export class UserProvider extends React.Component{
             accounts: this.state.accounts,
             addAccounts: this.addAccounts,
             refreshAccounts: this.refreshAccounts,
-            deleteAccount: this.deleteAccount
+            deleteAccount: this.deleteAccount,
+            logIn: this.logIn
         };
 
         return (

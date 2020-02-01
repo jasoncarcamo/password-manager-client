@@ -1,0 +1,26 @@
+#accounts-section{
+    margin-bottom: 5em !important;
+    padding: 0;
+}
+
+#accounts-section > p{
+    text-align: center;
+}
+
+#accounts-section ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 0;
+    width: 85%;
+    margin: 0 auto;
+}
+
+#accounts-section li{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-bottom: .08em solid rgb(178, 233, 255); 
+    font-size: 1.1em;
+}
+

@@ -1,7 +1,9 @@
 import React from "react";
 import TokenServcie from "../../../../services/TokenService/TokenService";
 import UserContext from "../../../../contexts/UserContext/UserContext";
+import "./Account.css";
 import $ from "jquery";
+
 
 export default class Account extends React.Component{
     constructor(props){
@@ -57,9 +59,14 @@ export default class Account extends React.Component{
     confirmDelete = ()=>{
         return (
             <details key={this.props.index}>
-                <summary>{this.props.account.url}</summary>
+                <summary>
+                    <img src={`//logo.clearbit.com/${this.props.account.url}`} alt={"No icon available for " + this.props.account.url}></img>
+                    
+                    {this.props.account.url}
+                </summary>
+                
                 <p>Are you sure?</p>
-                <div>
+                <div className="confirmation-buttons">
                     <button onClick={this.handleDelete}>Yes</button>
                     <button onClick={()=>{ this.setState({ delete: false})}}>Cancel</button>
                 </div>
@@ -92,20 +99,32 @@ export default class Account extends React.Component{
     renderAccount = () => {
         return (
             <details key={this.props.index} className="account-detail">
-                <summary>{this.props.account.url}</summary>
+
+                <summary>
+                    <img src={`//logo.clearbit.com/${this.props.account.url}`} alt={"No icon available for " + this.props.account.url}></img>
+                    
+                    {this.props.account.url}
+                </summary>
+
                 <p>Url: {this.props.account.url}</p>
-                <img src={`//logo.clearbit.com/${this.props.account.url}`} alt={this.props.account.url}></img>
                 <p>Email: {this.props.account.email_used}</p>
                 <p>User name: {this.props.account.user_name}</p>
+
                 <div>
-                    <p className="password-input-label">Password: <input className="account-password" type="password" value={this.props.account.password} readOnly/></p>
+                    <p className="password-input-label">
+                        Password:  
+                    <input className="account-password" type="password" value={this.props.account.password} readOnly/>
+                    </p>
+                    
                     <button
                         onClick={this.togglePassword}>Hide/ Show</button>
                 </div>
 
-                <div>
-                    <button onClick={this.editAccount}>Edit</button>
-                    <button onClick={()=>{this.setState({ delete: true})}}>Delete</button>
+                <div className="confirmation-buttons">
+                    <button 
+                        onClick={this.editAccount}>Edit</button>
+                    <button 
+                        onClick={()=>{this.setState({ delete: true})}}>Delete</button>
                 </div>
             </details>
         )

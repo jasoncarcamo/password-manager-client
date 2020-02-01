@@ -1,6 +1,11 @@
 #landing-page{
     text-align: center;
     width: 100%;
-    height: auto;
     text-align: center;
+    background-color: white;
+    margin: 0 auto;
+}
+
+#landing-page > p{
+    padding: 5em 0;
 }

@@ -2,6 +2,7 @@ import React from "react";
 import {Route, Link} from "react-router-dom";
 import TokenService from "../../services/TokenService/TokenService";
 import UserContext from "../../contexts/UserContext/UserContext";
+import "./User.css";
 
 //Users section routes
 import UserHeader from "./UserHeader/UserHeader";
@@ -21,7 +22,7 @@ export default class User extends React.Component{
     static contextType = UserContext; 
 
     componentDidMount(){
-
+        console.log("Mounted")
         if(!TokenService.hasToken()){
             return this.props.history.push("/login");
         };
@@ -29,10 +30,18 @@ export default class User extends React.Component{
         if(this.props.location.pathname === "/user/new-account"){
             this.setState({ newAccount: true});
         };
-        console.log(this.context.accounts)
-        setTimeout(()=>{
+
+        console.log(this.context);
+
+        if(this.context.accounts.length === 0){
+            console.log("No context")
+            setTimeout(()=>{
+                this.setState({ accounts: this.context.accounts});
+            }, 500);
+        } else{
+            console.log("has context")
             this.setState({ accounts: this.context.accounts});
-        }, 500);
+        }
 
     };
 
@@ -55,11 +64,11 @@ export default class User extends React.Component{
     }
 
     render(){
-        
+        console.log(this.state.accounts)
         return (
-            <section>
+            <section id="user-section">
                 <Route path="/user" component={UserHeader}></Route>
-
+                <div></div>
                 <Route exact path="/user" render={(props)=><Accounts {...props} accounts={this.context.accounts}  ></Accounts>}></Route>
 
                 <Route path="/user/new-account" component={CreateAccount}></Route>

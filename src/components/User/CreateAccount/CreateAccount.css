@@ -4,9 +4,11 @@
 }
 
 #create-account-form{
-    width: 100%;
+    width: 45em;
     margin: 2.5em auto;
     padding: 0;
+    background-color: white;
+    border-radius: .5em;
 }
 
 #create-account-form fieldset{
@@ -30,11 +32,11 @@ fieldset legend{
 
 #create-account-form input{
     width: 44em;
-    height: 2em;
+    height: 3em;
     padding-left: 1em;
     margin: 0 auto;
     border-radius: .5em;
-    border: .1em solid #b6bed3;
+    border: .1em solid lightgray;
 }
 
 #create-account-form input:hover{
@@ -81,6 +83,7 @@ fieldset legend{
 @media screen and (max-width: 770px){
 
     #create-account-form{
+        width: 60%;
         margin: 2.5em auto;
         padding: 0;
     }
@@ -99,7 +102,6 @@ fieldset legend{
     
     #create-account-form input{
         width: 85%;
-        height: 2em;
     }
 
     #create-account-success{

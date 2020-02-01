@@ -2,7 +2,7 @@
     padding: 0;
     height: 3.6em;
     background-color: #f7f8fb;
-    border: .04em solid #d3ddfa;
+    border-bottom: .1em solid #d3ddfa;
 }
 
 #user-header > button{

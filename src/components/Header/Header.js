@@ -31,6 +31,7 @@ export default class Header extends React.Component{
 
                     <li>
                         <NavLink 
+                            
                             to="/user" onClick={this.handleMobileNav}
                             activeStyle={{fontWeight: "bold", fontSize: "1.2em"}}>My accounts</NavLink>
                     </li>

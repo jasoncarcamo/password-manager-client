@@ -6,7 +6,8 @@
     left: 0;
     margin: 0;
     padding: 0;
-    box-shadow: 0 .1em 1em lightgray;
+    z-index: 2;
+    box-shadow: 0 .05em 1em gray;
     background-color: white;
 }
 
@@ -29,7 +30,8 @@
 
 .Link{
     text-decoration: none;
-    color: black;
+    color: #79589f;-webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;;
 }
 
 #nav-links{
@@ -50,6 +52,7 @@
     list-style: none;
     text-decoration: none;
     color: black;
+    color: #79589f;
 }
 
 @media screen and (max-width: 770px){
@@ -70,7 +73,7 @@
 
     #main-header nav > h2{
         position: absolute;
-        right: .8em;
+        right: 1.2em;
         margin: .6em 0 0 0;
     }
 

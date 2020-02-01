@@ -8,6 +8,7 @@ import LandingPage from "../components/LandingPage/LandingPage";
 import Register from "../components/Register/Register";
 import Login from "../components/Login/Login";
 import User from "../components/User/User";
+import Footer from "../components/Footer/Footer";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route exact path="/login" component={Login}></Route>
       
       <Route path="/user" component={User}></Route>
+      <Route path="/" component={Footer}></Route>
     </section>
   );
 }

@@ -1,0 +1,171 @@
+#register-section > h4{
+    width: 50%;
+    margin: 7em auto 4em auto;
+    text-align: center;
+    color: white;
+    font-size: 1.6em;
+}
+
+#register-section > section{
+    display: flex;
+    width: 45em;
+    margin: 0 auto 10em auto;
+    border-radius: .3em;
+    padding: 0;
+    background-color: rgb(248, 248, 248);
+}
+
+#register-section > section > section{
+    display: flex;
+    width: 45%;
+    margin: 4em 0 4em 1.5em;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 0;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+#register-section > section > section > p{
+    margin: 2em auto;
+    text-align: center;
+    font-size: 1.1em;
+    color: #79589f;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*Register form style starts here */
+#register-form{
+    width: 25em;
+    position: relative;
+    right: -1.2em;
+    margin: 1em auto;
+    padding: 0;
+    background-color: white;
+    border-radius: .3em;
+    border: .1em solid lightgray;
+    box-shadow: .5em  .05em 1em black;
+}
+
+#register-form fieldset{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 0;
+    padding: 2em 0 0 0;
+    border: none;
+}
+
+#register-form label{
+    width: 90%;
+    margin: 1em auto .5em auto;
+}
+
+#register-form input{
+    height: 3em;
+    width: 90%;
+    margin: 0 auto;
+    padding-left: 1em;
+    border-radius: .3em;
+    border: .1em solid lightgray;
+}
+
+#register-form input:hover{
+    border: .1em solid #92aeff;
+}
+
+#register-form p{
+    text-align: center;
+}
+
+#password-confirm-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid gray;
+    border-radius: .3em;
+    background-color: rgb(255, 255, 245);
+}
+
+#password-confirm-box span{
+    margin-bottom: .5em;
+    padding-left: .5em;
+}
+
+#password-matches{
+    width: 90%;
+    margin: 0 auto;
+    height: .4em;
+    background-color: gray;
+    border-radius: .2em;
+}
+
+#register-submit{
+    display: block;
+    font-size: 1em;
+    width: 7.1em;
+    height: 2.4em;
+    margin: 2em auto;
+    border-radius: .6em;
+    border: none;
+    color: white;
+    background: linear-gradient(135deg,#ac8ece,#79589f);
+}
+
+@media screen and (max-width: 770px){
+
+    #register-section > section{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        width: 95%;
+        margin: 0 auto 4em auto;
+        border-radius: .3em;
+        padding: 0;
+        background-color: rgb(248, 248, 248);
+    }
+    
+    #register-section > section > section{
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        margin: 3em auto;
+        flex-direction: column;
+        justify-content: space-evenly;
+        padding: 0;
+        text-align: center;
+        font-size: 1.2em;
+    }
+
+    #register-form{
+        width: 95%;
+        margin: 1em auto;
+        position: unset;
+        padding: 0;
+        background-color: white;
+        border-radius: .3em;
+        border: .1em solid lightgray
+    }
+    
+    #register-form fieldset{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        margin: 0;
+        padding: 0;
+        border: none;
+    }
+
+    #register-form label{
+        width: 90%;
+        margin: 1em auto .5em auto;
+    }
+
+    #register-form input{
+        width: 90%;
+        margin: 0 auto;
+    }
+}

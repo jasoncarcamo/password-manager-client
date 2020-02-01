@@ -5,54 +5,10 @@ export default class extends React.Component{
     render(){
         return (
             <section id="landing-page">
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                v
-                <p>pagrlkwejrklewrnifp</p><p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                v
-                v
-                <p>pagrlkwejrklewrnifp</p>
-                v
-                v
-                <p>pagrlkwejrklewrnifp</p><p>pagrlkwejrklewrnifp</p><p>pagrlkwejrklewrnifp</p><p>pagrlkwejrklewrnifp</p><p>pagrlkwejrklewrnifp</p><p>pagrlkwejrklewrnifp</p><p>pagrlkwejrklewrnifp</p><p>pagrlkwejrklewrnifp</p><p>pagrlkwejrklewrnifp</p><p>pagrlkwejrklewrnifp</p><p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
-                <p>pagrlkwejrklewrnifp</p>
+                <p>Stop forgettying your passwords!</p>
+                <p>Password manager is not an extension for your browser</p>
+                <p>We promise to never store your information in an imaginary "Cloud" server</p>
+                <p>We are privately owned and will never lower ourselves by selling your information</p>
             </section>
         );
     };

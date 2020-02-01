@@ -1,0 +1,60 @@
+details{
+    margin: 1em auto;
+    padding: 0;
+}
+summary{
+    padding: 0;
+    margin: 0
+}
+
+summary img{
+    position: relative;
+    top: .7em;
+    left: 0;
+    margin: 0 1em 0 0;
+    padding: 0;
+    height: 2em;
+    border-radius: 1em;
+}
+
+details > p {
+    text-align: center;
+}
+
+details > div{
+    display: flex;
+    width: 18em;
+    padding: 0;
+    margin: 0 auto;
+}
+
+details input{
+    height: 3em;
+    padding-left: 1em;
+}
+
+details > div p{
+    margin: 0;
+    padding: 0;
+
+}
+
+details > div button{
+    display: block;
+    width: 4em;
+    height: 3em;
+    margin : 0;
+    color: white;
+    background-color: #906eb6;
+    border: none;
+    border-radius: .3em;
+}
+
+.confirmation-buttons{
+    margin: 2em auto;
+    padding: 0;
+}
+
+.confirmation-buttons button{
+    margin: 0 auto;
+}

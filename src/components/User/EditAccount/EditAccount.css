@@ -1,5 +1,62 @@
+#edit-account-section{
+    min-height: 50vh;
+    padding: 0;
+}
 
+#edit-account-form{
+    width: 45em;
+    margin: 2.5em auto;
+    padding: 0;
+    background-color: white;
+    border-radius: .5em;
+    border: .1em solid #79589f;
+}
 
+#edit-account-form fieldset{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding: 0 ;
+    margin: 0;
+    border: none;
+}
+
+fieldset legend{
+    text-align: center;
+}
+
+#edit-account-form label{
+    width: 37em;
+    padding: 0;
+    margin: 1em auto .4em auto;
+}
+
+#edit-account-form input{
+    width: 44em;
+    height: 3em;
+    padding-left: 1em;
+    margin: 0 auto;
+    border-radius: .5em;
+    border: .1em solid lightgray;
+}
+
+#edit-account-form input:hover{
+    border: .1em solid #92aeff;
+}
+
+#edit-account-submit{
+    display: block;
+    font-size: 1em;
+    width: 7.1em;
+    height: 2.4em;
+    margin: 2em auto;
+    border-radius: .6em;
+    border: none;
+    color: white;
+    background: linear-gradient(135deg,#ac8ece,#79589f);
+}
+
+/*Edit account confirmation box style begins here*/
 
 #edit-account-success{
     display: flex;
@@ -25,6 +82,29 @@
 }
 
 @media screen and (max-width: 770px){
+
+    #edit-account-form{
+        width: 60%;
+        margin: 2.5em auto;
+        padding: 0;
+    }
+    
+    #edit-account-form fieldset{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        margin: 0;
+    }
+
+    #edit-account-form label {
+        width: 85%;
+        
+    }
+    
+    #edit-account-form input{
+        width: 85%;
+    }
+
     #edit-account-success{
         
         width: 60%;
