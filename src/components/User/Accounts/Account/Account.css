@@ -61,13 +61,12 @@ details > div button{
 
 @media screen and (max-width: 770px){
     details > div{
-        width: 85%;
+        width: 95%;
         padding: 0 auto;
         justify-content: center;
     }
 
     details input {
         width: 8em;
-        height: 2.6em;
     }
 }

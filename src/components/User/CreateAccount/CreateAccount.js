@@ -1,6 +1,7 @@
 import React from 'react';
 import TokenService from "../../../services/TokenService/TokenService";
 import UserContext from "../../../contexts/UserContext/UserContext";
+import ReactLoading from "react-loading";
 import "./CreateAccount.css"
 
 export default class CreateAccount extends React.Component{
@@ -12,6 +13,7 @@ export default class CreateAccount extends React.Component{
             user_name: "",
             password: "",
             success: false,
+            creating: false,
             error: ""
         }
     };
@@ -60,6 +62,10 @@ export default class CreateAccount extends React.Component{
     handleSubmit = (e)=>{
         e.preventDefault();
 
+        this.setState({
+            creating: true
+        })
+
         this.reWriteUrl(this.state.url)
             .then( newUrl => {
                 fetch(`https://still-crag-51210.herokuapp.com/api/accounts`, {
@@ -87,7 +93,10 @@ export default class CreateAccount extends React.Component{
                         this.addAccounts(resData.account);
 
                     })
-                    .catch( err => this.setState({ error: err.error}));
+                    .catch( err => this.setState({ 
+                        error: err.error,
+                        creating: false
+                        }));
                     })        
         
     };
@@ -152,9 +161,11 @@ export default class CreateAccount extends React.Component{
 
                         <label htmlFor="new-acc-password">Password</label>
                             <input 
-                                type="text"
+                                type="password"
                                 onChange={this.handlePassword}
                                 required></input>
+
+                        {this.state.creating ? <ReactLoading className="Loading" type={"spin"} color={"purple"}></ReactLoading> : ""}
 
                         {this.state.success ? "" : <button type="submit" id="create-account-submit">Create</button>}
                     </fieldset>                    

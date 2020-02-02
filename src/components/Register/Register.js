@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import TokenService from "../../services/TokenService/TokenService";
 import "./Register.css";
+import ReactLoading from "react-loading";
 
 export default class Register extends React.Component{
     constructor(props){
@@ -13,6 +14,7 @@ export default class Register extends React.Component{
             email: "",
             password: "",
             confirmPassword: "",
+            registering: false,
             error: ""
         }
     }
@@ -93,6 +95,10 @@ export default class Register extends React.Component{
     handleForm = (e)=>{
         e.preventDefault();
 
+        this.setState({
+            registering: true
+        });
+
         if(this.state.password !== this.state.confirmPassword){
             this.setState({ error: "Your password must match. Please confirm your password"});
             return;
@@ -124,7 +130,15 @@ export default class Register extends React.Component{
                 this.props.history.push("/user");
 
             })
-            .catch( err => this.setState({ error: err.error}));
+            .catch( err => this.setState({ 
+                first_name: "",
+                last_name: "",
+                email: "",
+                password: "",
+                confirmPassword: "",
+                registering: false,
+                error: err.error
+        }));
 
     }
 
@@ -202,6 +216,8 @@ export default class Register extends React.Component{
 
 
                             {this.state.error ? this.errorHandler(this.state.error) : ""}
+
+                            {this.state.registering ? <ReactLoading className="Loading" type={"spin"} color={"purple"}></ReactLoading> : ""}
 
                             <button 
                             id="register-submit"

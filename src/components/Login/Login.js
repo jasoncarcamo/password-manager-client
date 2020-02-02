@@ -3,6 +3,7 @@ import TokenService from "../../services/TokenService/TokenService";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import UserContext from "../../contexts/UserContext/UserContext";
+import ReactLoading from "react-loading";
 
 export default class Login extends React.Component{
     constructor(props){
@@ -11,6 +12,7 @@ export default class Login extends React.Component{
         this.state = {
             email: "",
             password: "",
+            loggingIn: false,
             error: ""
         };
     };
@@ -27,6 +29,10 @@ export default class Login extends React.Component{
 
     handleForm = (e)=>{
         e.preventDefault();
+
+        this.setState({
+            loggingIn: true
+        });
 
         fetch("https://still-crag-51210.herokuapp.com/api/login", {
             method: "POST",
@@ -53,12 +59,17 @@ export default class Login extends React.Component{
 
                 this.props.history.push("/user");
             })
-            .catch( err => this.setState({ error: err.error}));
+            .catch( err => this.setState({ 
+                email: "",
+                password: "",
+                loggingIn: false,
+                error: err.error
+            }));
     };
 
     loadUserInfo = ()=>{
         this.context.logIn();
-    }
+    };
 
     errorHandler = (error)=>{
         if(error === "No user found"){
@@ -67,8 +78,8 @@ export default class Login extends React.Component{
             )
         } else{
             return <p>{error}</p>
-        }
-    }
+        };
+    };
 
     render(){
         
@@ -96,6 +107,8 @@ export default class Login extends React.Component{
                             required></input>
 
                         {this.state.error ? this.errorHandler(this.state.error) : ""}
+
+                        {this.state.loggingIn ? <ReactLoading className="Loading" type={"spin"} color={"purple"}></ReactLoading> : ""}
 
                         <button 
                             id="login-submit"

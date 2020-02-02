@@ -1,6 +1,7 @@
 import React from "react";
 import TokenService from "../../../services/TokenService/TokenService";
 import UserContext from "../../../contexts/UserContext/UserContext";
+import ReactLoading from "react-loading";
 import "./EditAccount.css";
 
 export default class EditAccount extends React.Component{
@@ -12,6 +13,7 @@ export default class EditAccount extends React.Component{
             user_name: "",
             password: "",
             success: false,
+            editing: false,
             error: ""
         }
     };
@@ -65,6 +67,10 @@ export default class EditAccount extends React.Component{
     handleSubmit = (e)=>{
         e.preventDefault();
 
+        this.setState({
+            editing: true
+        });
+
         fetch(`https://still-crag-51210.herokuapp.com/api/accounts/${this.getId()}`, {
             method: "PATCH",
             headers: {
@@ -88,7 +94,10 @@ export default class EditAccount extends React.Component{
             .then( resData => {
                 this.refreshAccounts(resData.account);
             })
-            .catch( err => this.setState({ error: err.error}))
+            .catch( err => this.setState({ 
+                error: err.error,
+                editing: false
+            }))
     };
 
     refreshAccounts = (account)=>{
@@ -149,8 +158,7 @@ export default class EditAccount extends React.Component{
                                 type="text"
                                 placeholder="Username if applicable"
                                 onChange={this.handleUserName}
-                                value={this.state.user_name}
-                                required></input>
+                                value={this.state.user_name}></input>
 
                         <label htmlFor="new-acc-password">Password</label>
                             <input 
@@ -161,6 +169,7 @@ export default class EditAccount extends React.Component{
 
                                 {this.state.error ? <p>{this.state.error}</p> : ""}
 
+                        {this.state.editing ? <ReactLoading className="Loading" type={"spin"} color={"purple"}></ReactLoading> : ""}
                         <button 
                             id="edit-account-submit"
                             type="submit">Edit</button>

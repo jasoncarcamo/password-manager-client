@@ -63,22 +63,28 @@ fieldset legend{
     flex-direction: column;
     justify-content: space-evenly;
     position: absolute;
-    z-index: 1;
+    z-index: 0;
     margin: auto;
     width: 50%;
     height: 50vh;
     top: 25%;
-    left: 24.5%;
-    background-color: white;
+    left: 25%;
+    color: white;
     text-align: center;
-    border: 1px solid black;
+    border: none;
+    box-shadow: .5em .8em 1em gray;
+    background-color: #5f0085;
 }
 
 #edit-account-success button{
     display: block;
     margin: 1em auto 0 auto;
     width: 6em;
-    height: 3em;
+    height: 3em;    
+    border-radius: .6em;
+    border: none;
+    color: #5f0085;
+    background: white;
 }
 
 @media screen and (max-width: 770px){
@@ -107,9 +113,10 @@ fieldset legend{
 
     #edit-account-success{
         
-        width: 60%;
-        height: 40vh;
+        width: 90%;
+        height: 27em;
         top: 23%;
-        left: 20.2%;
+        left: 5%;
+        padding: 0 1.2em;
     }
 }

@@ -115,6 +115,11 @@
     background: linear-gradient(135deg,#ac8ece,#79589f);
 }
 
+.Loading{
+    text-align: center;
+    margin: .5em auto;
+}
+
 @media screen and (max-width: 770px){
 
     #register-section > section{
