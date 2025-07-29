@@ -1,20 +1,59 @@
-#landing-page{
-    text-align: center;
-    width: 100%;
-    min-height: 95vh;
-    text-align: center;
-    background-color: white;
-    margin: 0 auto;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+  --accent: #79589f;
+  --bg: #f8f7fc;
+  --text-dark: #1c1c1e;
+  --text-light: #5a5a5e;
 }
 
-#landing-page > div{
-    padding: 5em 0;
-    width: 80%;
-    margin: 2em auto;
-    text-align: center;
-    font-size: 1.2em;
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text-dark);
 }
 
-.Icon{
-    font-size: 2.7em;
+#landing-page {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+.feature {
+  height: 100vh;
+  padding: 3em 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: start;
+  text-align: center;
+  position: relative;
+  background: linear-gradient(145deg, #faf9ff, #f1edf9);
+  transition: background 0.3s ease;
+}
+
+.icon {
+  font-size: 5.5rem;
+  color: var(--accent);
+  transition: transform 0.3s ease;
+}
+
+.icon:hover {
+  transform: scale(1.05);
+}
+
+.headline {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: -0.5px;
+}
+
+.subtext {
+  font-size: 1.25rem;
+  max-width: 640px;
+  color: var(--text-light);
+  line-height: 1.6;
+  font-weight: 400;
 }

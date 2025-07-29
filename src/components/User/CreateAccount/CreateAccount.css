@@ -71,7 +71,7 @@ fieldset legend{
     color: white;
     text-align: center;
     border: none;
-    box-shadow: .5em .8em 1em gray;
+    box-shadow: 0 .8em 1em rgba(0, 0, 0, 0.15);
     background-color: #5f0085;
 }
 

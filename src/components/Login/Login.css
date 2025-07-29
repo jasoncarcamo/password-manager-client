@@ -15,6 +15,7 @@
     flex-direction: column;
     justify-content: space-evenly;
     border: none;
+    box-shadow: 0 .8em 1em rgba(0, 0, 0, 0.15);
 }
 
 #login-form p{

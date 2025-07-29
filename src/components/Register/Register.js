@@ -57,35 +57,35 @@ export default class Register extends React.Component{
         const REGEX_UPPER_LOWER_NUMBER_SPECIAL = (/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&])[\S]+/);
 
         const requirements = [ 
-            <span key={0} className="reg_error" style={{color: 'gray'}}>Password must be longer than 8 characters</span>,
-            <span key={1} className="reg_error" style={{color: 'gray'}}>Password must be less than 72 characters</span>,
-            <span key={2} className="reg_error" style={{color: 'gray'}}>Password must not start or end with empty spaces</span>,
-            <span key={3} className="reg_error" style={{color: 'gray'}}>Password must contain one upper case, lower case, number and special character</span>
+            <span key={0} className="reg_error" style={{color: 'gray'}}>* Password must be longer than 8 characters</span>,
+            <span key={1} className="reg_error" style={{color: 'gray'}}>* Password must be less than 72 characters</span>,
+            <span key={2} className="reg_error" style={{color: 'gray'}}>* Password must not start or end with empty spaces</span>,
+            <span key={3} className="reg_error" style={{color: 'gray'}}>* Password must contain one upper case, lower case, number and special character</span>
         ]
 
         if(password.length > 1){
             if (password.length > 8) {
-                requirements[0] = <span key={0} className="reg_error" style={{color: 'green'}}>Password must be longer than 8 characters</span>
+                requirements[0] = <span key={0} className="reg_error" style={{color: 'green'}}>* Password must be longer than 8 characters</span>
               } else{
       
               }
       
               if (password.length < 72) {
-                requirements[1] = <span key={1} className="reg_error" style={{color: 'green'}}>Password must be less than 72 characters</span>
+                requirements[1] = <span key={1} className="reg_error" style={{color: 'green'}}>* Password must be less than 72 characters</span>
               } else{
       
               };
       
               if (!password.startsWith(' ') || !password.endsWith(' ')) {
-                requirements[2] = <span key={2} className="reg_error" style={{color: 'green'}}>Password must not start or end with empty spaces</span>
+                requirements[2] = <span key={2} className="reg_error" style={{color: 'green'}}>* Password must not start or end with empty spaces</span>
               } else{
                 
               };
       
               if (!REGEX_UPPER_LOWER_NUMBER_SPECIAL.test(password)) {
-                  requirements[3] = <span key={3} className="reg_error" style={{color: 'gray'}}>Password must contain one upper case, lower case, number and special character</span>
+                  requirements[3] = <span key={3} className="reg_error" style={{color: 'gray'}}>* Password must contain one upper case, lower case, number and special character</span>
               } else{
-                  requirements[3] = <span key={3} className="reg_error" style={{color: 'green'}}>Password must contain one upper case, lower case, number and special character</span>
+                  requirements[3] = <span key={3} className="reg_error" style={{color: 'green'}}>* Password must contain one upper case, lower case, number and special character</span>
               };
         }
         
@@ -156,13 +156,13 @@ export default class Register extends React.Component{
         return (
             <section id="register-section">
 
-                <h4>Register for free and never forget your passwords to any of your most used sites</h4>
+                <h2>Register for free and never forget your passwords to any of your most used sites</h2>
                 
                 <section>
-                    <section>
-                        <p>Free</p>
-                        <p>No one will ever contact you asking for information</p>
-                        <p>Your passwords are hashed, salted, and protected from cross site scripting</p>
+                    <section className="feature-card">
+                        <h2 className="feature-title">Free</h2>
+                        <p className="feature-point">No one will ever contact you asking for information.</p>
+                        <p className="feature-point">Your passwords are hashed, salted, and protected from cross-site scripting.</p>
                     </section>
 
                     <form 

@@ -1,101 +1,115 @@
-#main-header{
-    position: fixed;
-    width: 100vw;
-    height: 4.45em;
+:root {
+  --accent: #79589f;
+  --bg-white: #ffffff;
+  --text-dark: #1c1c1e;
+}
+
+/* ======= Main Header ======= */
+#main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 4.5em;
+  background-color: var(--bg-white);
+  box-shadow: 0 .8em 1em rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+/* ======= Navigation Layout ======= */
+#main-header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5em;
+}
+
+/* ======= Logo / Brand ======= */
+#main-header nav h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.Link {
+  text-decoration: none;
+  color: var(--accent);
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ======= Nav Links ======= */
+#nav-links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2rem;
+}
+
+#nav-links li {
+  list-style: none;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+#nav-links a {
+  text-decoration: none;
+  color: var(--accent);
+  transition: color 0.2s ease;
+}
+
+#nav-links a:hover {
+  color: #5f3e90;
+}
+
+/* ======= Hamburger Button ======= */
+#nav-burger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+/* ======= Mobile Styles ======= */
+@media screen and (max-width: 770px) {
+  #nav-burger {
+    display: block;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+  }
+
+  #main-header nav h2 {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.5rem;
+    font-size: 1.4rem;
+  }
+
+  #nav-links {
+    position: absolute;
     top: 0;
     left: 0;
-    margin: 0;
-    padding: 0;
-    z-index: 2;
-    box-shadow: 0 .05em 1em gray;
-    background-color: white;
-}
-
-#nav-burger{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-white);
     display: none;
-}
+  }
 
-#main-header nav{
-    display: flex;
-    justify-content: space-between;
-    margin: 0;
-    padding: 0;
-}
+  #nav-links li {
+    margin: 1.5rem 0;
+  }
 
-#main-header nav > h2{
-    margin-left: 1em;
-    padding: 0;
-    
-}
-
-.Link{
-    text-decoration: none;
-    color: #79589f;-webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;;
-}
-
-#nav-links{
-    display: flex;
-    justify-content: space-between;
-    width: 40%;
-    padding: 0;
-}
-
-#nav-links li{
-    font-size: 1.1em;
-    width: 10em;
-    text-align: center;
-    padding: 0;
-    margin: auto;
-}
-
-#nav-links *{
-    list-style: none;
-    text-decoration: none;
-    color: black;
-    color: #79589f;
-}
-
-@media screen and (max-width: 770px){
-
-
-    #nav-burger{
-        display: block;
-        margin: .5em 0 0 1em;
-        position: absolute;
-        z-index: 4;
-    }
-
-    #main-header{
-        top: 0;
-        left: 0;
-        z-index: 1;
-    }
-
-    #main-header nav > h2{
-        position: absolute;
-        right: 1.2em;
-        margin: .6em 0 0 0;
-    }
-
-    #nav-links{
-        display: none;
-        position: absolute;
-        top: 0;
-        left: 0;
-        flex-direction: column;
-        width: 101vw;
-        height: 100vh;
-        margin: 0;
-        z-index: 3;
-        background-color: white;
-    }
-
-    #nav-links li{
-        text-align: center;
-    }
-
-    .display-nav{
-        display: flex !important;
-    }
+  .display-nav {
+    display: flex !important;
+  }
 }

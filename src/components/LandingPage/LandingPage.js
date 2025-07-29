@@ -7,44 +7,31 @@ export default class extends React.Component{
     render(){
         return (
             <section id="landing-page">
-
-                <div>
-                    <FontAwesomeIcon 
-                        className="Icon" 
-                        icon={faBrain}
-                        style={{color: "tan"}}></FontAwesomeIcon>
-                    <p>Stop forgetting your passwords!</p>
+                <div className="feature">
+                    <FontAwesomeIcon className="icon" icon={faBrain} />
+                    <h2 className="headline">Never forget a password again</h2>
+                    <p className="subtext">A simple, secure password manager — no browser extensions, no cloud gimmicks.</p>
                 </div>
-                
 
-                <div>
-                    <FontAwesomeIcon 
-                        className="Icon" 
-                        icon={faKey}
-                        style={{color: "gold"}}></FontAwesomeIcon>
-                    <p>Password manager is not an extension for your browser</p>
+                <div className="feature">
+                    <FontAwesomeIcon className="icon" icon={faKey} />
+                    <h2 className="headline">Independent and reliable</h2>
+                    <p className="subtext">Designed to run on its own, giving you full control over your data.</p>
                 </div>
-                
 
-                <div>
-                    <FontAwesomeIcon 
-                        className="Icon" 
-                        icon={faCloud}
-                        style={{color: "skyblue"}}></FontAwesomeIcon>
-                    <p>We promise to never store your information in an imaginary "Cloud" server</p>
+                <div className="feature">
+                    <FontAwesomeIcon className="icon" icon={faCloud} />
+                    <h2 className="headline">No cloud. No compromise.</h2>
+                    <p className="subtext">Your data is never stored in ambiguous cloud infrastructure — full transparency.</p>
                 </div>
-                
 
-                <div>
-                    <FontAwesomeIcon 
-                        className="Icon" 
-                        icon={faHatCowboy}
-                        style={{color: "brown"}}></FontAwesomeIcon>
-                    <p>We are privately owned and will never lower ourselves to selling your information</p>
+                <div className="feature">
+                    <FontAwesomeIcon className="icon" icon={faHatCowboy} />
+                    <h2 className="headline">Privacy is not a feature</h2>
+                    <p className="subtext">We’re independent — your data will never be sold, shared, or tracked. Ever.</p>
                 </div>
-                
-
             </section>
+
         );
     };
 };
