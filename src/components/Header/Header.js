@@ -1,107 +1,198 @@
+
 import React from "react";
-import {Link, NavLink} from "react-router-dom";
+import { Link, NavLink, withRouter } from "react-router-dom";
 import TokenService from "../../services/TokenService/TokenService";
+
 import "./Header.css";
-import "./hamburger.css";
 
-export default class Header extends React.Component{
+class Header extends React.Component {
+    constructor(props) {
+        super(props);
 
-    componentDidMount(){
-        const navLinks = document.getElementById("nav-links");
-
-        navLinks.addEventListener("touchmove", (e)=>{
-            e.preventDefault();
-        })
+        this.state = {
+            isMenuOpen: false
+        };
     }
 
-    handleMobileNav = (e) => {
-        const burger = document.getElementById("nav-burger");
-        const closeLinks = document.getElementById("close-links");
-        const navLinks = document.getElementById("nav-links");
-
-        burger.classList.toggle("is-active");
-        navLinks.classList.toggle("display-nav");
+    componentDidUpdate(prevProps) {
+        if (prevProps.location.pathname !== this.props.location.pathname) {
+            if (this.state.isMenuOpen) {
+                this.setState({
+                    isMenuOpen: false
+                });
+            }
+        }
     }
 
-    hasToken = () => {
+    componentWillUnmount() {
+        document.body.style.overflow = "";
+    }
 
-        if(TokenService.hasToken()){
+    handleMobileNav = () => {
+        this.setState((prevState) => ({
+            isMenuOpen: !prevState.isMenuOpen
+        }));
+    };
+
+    closeMobileNav = () => {
+        if (this.state.isMenuOpen) {
+            this.setState({
+                isMenuOpen: false
+            });
+        }
+    };
+
+    handleSignOff = (event) => {
+        event.preventDefault();
+
+        TokenService.deleteToken();
+
+        this.setState({
+            isMenuOpen: false
+        });
+
+        this.props.history.push("/");
+    };
+
+    renderAccountLinks = () => {
+        if (TokenService.hasToken()) {
             return (
                 <>
-
                     <li>
-                        <NavLink 
-                            
-                            to="/user" onClick={this.handleMobileNav}
-                            activeStyle={{fontWeight: "bold", fontSize: "1.1em"}}>My accounts</NavLink>
+                        <NavLink
+                            to="/user"
+                            className="header-nav-link"
+                            activeClassName="header-nav-link--active"
+                            onClick={this.closeMobileNav}
+                        >
+                            My Account
+                        </NavLink>
                     </li>
 
                     <li>
-                        <Link 
-                            
-                            to="/"
-                            onClick={this.handleSignOff} >Sign off</Link>
+                        <button
+                            type="button"
+                            className="header-signout"
+                            onClick={this.handleSignOff}
+                        >
+                            Sign Out
+                        </button>
                     </li>
-
                 </>
             );
-        };
+        }
 
         return (
             <>
-
                 <li>
-                    <NavLink 
-                        to="/login" 
-                        onClick={this.handleMobileNav}
-                        activeStyle={{fontWeight: "bold", fontSize: "1.1em"}}>Log In</NavLink>
+                    <NavLink
+                        to="/login"
+                        className="header-nav-link"
+                        activeClassName="header-nav-link--active"
+                        onClick={this.closeMobileNav}
+                    >
+                        Log In
+                    </NavLink>
                 </li>
 
                 <li>
-                    <NavLink 
-                        to="/register" 
-                        onClick={this.handleMobileNav}
-                        activeStyle={{fontWeight: "bold", fontSize: "1.1em"}}>Register</NavLink>
+                    <NavLink
+                        to="/register"
+                        className="header-register"
+                        activeClassName="header-register--active"
+                        onClick={this.closeMobileNav}
+                    >
+                        Get Started
+                        <span aria-hidden="true">↗</span>
+                    </NavLink>
                 </li>
-
             </>
         );
     };
 
-    handleSignOff = ()=> {
-        TokenService.deleteToken();
-        this.handleMobileNav();
-        this.props.history.push("/");
-    };
+    render() {
+        const { isMenuOpen } = this.state;
 
-    render(){
         return (
-            <header id="main-header">
-                <nav>
+            <header className="site-header">
+                <div className="header-container">
+                    <Link
+                        to="/"
+                        className="header-brand"
+                        onClick={this.closeMobileNav}
+                        aria-label="Password Manager home"
+                    >
+                        <span
+                            className="header-brand-icon"
+                            aria-hidden="true"
+                        >
+                            <svg
+                                viewBox="0 0 24 24"
+                                width="24"
+                                height="24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.8"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <rect
+                                    x="5"
+                                    y="10"
+                                    width="14"
+                                    height="11"
+                                    rx="2"
+                                />
 
-                    <button id="nav-burger" onClick={this.handleMobileNav} className="hamburger hamburger--collapse" type="button">
-                        <span className="hamburger-box" >
-                            <span className="hamburger-inner"></span>
+                                <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+                                <circle cx="12" cy="15" r="1" />
+                                <path d="M12 16v2" />
+                            </svg>
                         </span>
+
+                        <span className="header-brand-name">
+                            Password<span>Manager</span>
+                        </span>
+                    </Link>
+
+                    <button
+                        type="button"
+                        className={`header-menu-toggle ${isMenuOpen ? "is-active" : ""}`}
+                        onClick={this.handleMobileNav}
+                        aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+                        aria-expanded={isMenuOpen}
+                        aria-controls="header-navigation"
+                    >
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </button>
 
-                    <h2>
-                        <Link className="Link" to="/">Password Manager</Link>
-                    </h2>
+                    <nav
+                        id="header-navigation"
+                        className={`header-navigation ${isMenuOpen ? "header-navigation--open" : ""}`}
+                        aria-label="Main navigation"
+                    >
+                        <ul className="header-nav-list">
+                            <li>
+                                <NavLink
+                                    exact
+                                    to="/"
+                                    className="header-nav-link"
+                                    activeClassName="header-nav-link--active"
+                                    onClick={this.closeMobileNav}
+                                >
+                                    Home
+                                </NavLink>
+                            </li>
 
-                    <ul id="nav-links">
-                        <li>
-                            <NavLink 
-                            exact
-                            to="/" 
-                            onClick={this.handleMobileNav}
-                            activeStyle={{fontWeight: "bold", fontSize: "1.2em"}}>Home</NavLink>
-                        </li>
-
-                        {this.hasToken()}
-                    </ul>
-                </nav>
+                            {this.renderAccountLinks()}
+                        </ul>
+                    </nav>
+                </div>
             </header>
         );
-    };
-};
+    }
+}
+
+export default withRouter(Header);

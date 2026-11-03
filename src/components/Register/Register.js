@@ -1,11 +1,24 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faLock,
+    faShieldAlt,
+    faCheck,
+    faEye,
+    faEyeSlash,
+    faArrowRight,
+    faKey
+} from "@fortawesome/free-solid-svg-icons";
+
 import TokenService from "../../services/TokenService/TokenService";
-import "./Register.css";
 import ReactLoading from "react-loading";
 
-export default class Register extends React.Component{
-    constructor(props){
+import "./Register.css";
+
+export default class Register extends React.Component {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -14,220 +27,527 @@ export default class Register extends React.Component{
             email: "",
             password: "",
             confirmPassword: "",
+            showPassword: false,
+            showConfirmPassword: false,
             registering: false,
             error: ""
-        }
+        };
     }
 
-    handleFirstName = (e) =>{
-        this.setState({ first_name: e.target.value});
-    }
-
-    handleLastName = (e) => {
-        this.setState({ last_name: e.target.value});
-    };
-
-    handleEmail = (e)=>{
-        this.setState({ email: e.target.value});
-    }
-
-    handlePassword = (e)=>{
-        this.setState({ password: e.target.value});
-    }
-
-    handleconfirmPassword = (e)=>{
-        this.setState({ confirmPassword: e.target.value});
-    };
-
-    passwordMatch = ()=>{
-        const div = document.getElementById("password-matches");
-        
-        if(this.state.password === this.state.confirmPassword){
-            div.style.backgroundColor = "green"
-            return <p>Great! Your password matches</p>
-        } else{
-            div.style.backgroundColor = "red"
-            return <p>Your passwords do not match</p>
-        }
-        
-    };
-
-    validatePassword = (password) => {
-        
-        const REGEX_UPPER_LOWER_NUMBER_SPECIAL = (/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&])[\S]+/);
-
-        const requirements = [ 
-            <span key={0} className="reg_error" style={{color: 'gray'}}>* Password must be longer than 8 characters</span>,
-            <span key={1} className="reg_error" style={{color: 'gray'}}>* Password must be less than 72 characters</span>,
-            <span key={2} className="reg_error" style={{color: 'gray'}}>* Password must not start or end with empty spaces</span>,
-            <span key={3} className="reg_error" style={{color: 'gray'}}>* Password must contain one upper case, lower case, number and special character</span>
-        ]
-
-        if(password.length > 1){
-            if (password.length > 8) {
-                requirements[0] = <span key={0} className="reg_error" style={{color: 'green'}}>* Password must be longer than 8 characters</span>
-              } else{
-      
-              }
-      
-              if (password.length < 72) {
-                requirements[1] = <span key={1} className="reg_error" style={{color: 'green'}}>* Password must be less than 72 characters</span>
-              } else{
-      
-              };
-      
-              if (!password.startsWith(' ') || !password.endsWith(' ')) {
-                requirements[2] = <span key={2} className="reg_error" style={{color: 'green'}}>* Password must not start or end with empty spaces</span>
-              } else{
-                
-              };
-      
-              if (!REGEX_UPPER_LOWER_NUMBER_SPECIAL.test(password)) {
-                  requirements[3] = <span key={3} className="reg_error" style={{color: 'gray'}}>* Password must contain one upper case, lower case, number and special character</span>
-              } else{
-                  requirements[3] = <span key={3} className="reg_error" style={{color: 'green'}}>* Password must contain one upper case, lower case, number and special character</span>
-              };
-        }
-        
-        return requirements
-    }
-
-    handleForm = (e)=>{
-        e.preventDefault();
+    handleChange = (event) => {
+        const { name, value } = event.target;
 
         this.setState({
-            registering: true
+            [name]: value,
+            error: ""
         });
+    };
 
-        if(this.state.password !== this.state.confirmPassword){
-            this.setState({ error: "Your password must match. Please confirm your password"});
+    togglePassword = () => {
+        this.setState((prevState) => ({
+            showPassword: !prevState.showPassword
+        }));
+    };
+
+    toggleConfirmPassword = () => {
+        this.setState((prevState) => ({
+            showConfirmPassword: !prevState.showConfirmPassword
+        }));
+    };
+
+    getPasswordRequirements = (password) => {
+        return [
+            {
+                label: "At least 9 characters",
+                valid: password.length > 8
+            },
+            {
+                label: "Fewer than 72 characters",
+                valid: password.length < 72
+            },
+            {
+                label: "No spaces at the beginning or end",
+                valid: password.length > 0 &&
+                    !password.startsWith(" ") &&
+                    !password.endsWith(" ")
+            },
+            {
+                label: "Uppercase and lowercase letters",
+                valid: /[A-Z]/.test(password) && /[a-z]/.test(password)
+            },
+            {
+                label: "At least one number",
+                valid: /[0-9]/.test(password)
+            },
+            {
+                label: "At least one special character (!@#$%^&)",
+                valid: /[!@#$%^&]/.test(password)
+            }
+        ];
+    };
+
+    isPasswordValid = (password) => {
+        return this.getPasswordRequirements(password)
+            .every((requirement) => requirement.valid);
+    };
+
+    handleForm = (event) => {
+        event.preventDefault();
+
+        const {
+            first_name,
+            last_name,
+            email,
+            password,
+            confirmPassword,
+            registering
+        } = this.state;
+
+        if (registering) {
             return;
         }
+
+        if (!this.isPasswordValid(password)) {
+            this.setState({
+                error: "Please meet all password requirements."
+            });
+
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            this.setState({
+                error: "Your passwords do not match."
+            });
+
+            return;
+        }
+
+        this.setState({
+            registering: true,
+            error: ""
+        });
 
         fetch("https://still-crag-51210.herokuapp.com/api/register", {
             method: "POST",
             headers: {
-                "content-type": "application/json",
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                first_name: this.state.first_name,
-                last_name: this.state.last_name,
-                email: this.state.email,
-                password: this.state.password
+                first_name: first_name.trim(),
+                last_name: last_name.trim(),
+                email: email.trim(),
+                password
             })
         })
-            .then( res => {
-                if( !res.ok){
-                    return res.json().then( e => Promise.reject(e));
-                };
+            .then((response) => {
+                return response.json().then((data) => {
+                    if (!response.ok) {
+                        return Promise.reject(data);
+                    }
 
-                return res.json();
+                    return data;
+                });
             })
-            .then( resData => {
-                
-                TokenService.saveToken(resData.token);
+            .then((responseData) => {
+                if (!responseData.token) {
+                    throw new Error("Registration succeeded, but no token was returned.");
+                }
 
+                TokenService.saveToken(responseData.token);
                 this.props.history.push("/user");
-
             })
-            .catch( err => this.setState({ 
-                first_name: "",
-                last_name: "",
-                email: "",
-                password: "",
-                confirmPassword: "",
-                registering: false,
-                error: err.error
-        }));
+            .catch((error) => {
+                this.setState({
+                    registering: false,
+                    error: error.error ||
+                        error.message ||
+                        "Unable to create your account. Please try again."
+                });
+            });
+    };
 
-    }
+    renderPasswordRequirements = () => {
+        const requirements = this.getPasswordRequirements(
+            this.state.password
+        );
 
-    errorHandler = (error) => {
-        if(error == "You seem to have account already. Log in"){
-            return (
-                <p>{error} <Link to="/login"> here</Link></p>
-            );
-        } else{
-            return <p>{error}</p>
-        };
-    }
-
-    render(){
         return (
-            <section id="register-section">
+            <ul
+                className="register-requirements"
+                aria-label="Password requirements"
+            >
+                {requirements.map((requirement, index) => (
+                    <li
+                        key={index}
+                        className={
+                            requirement.valid
+                                ? "register-requirement register-requirement--valid"
+                                : "register-requirement"
+                        }
+                    >
+                        <span aria-hidden="true">
+                            {requirement.valid ? "✓" : "○"}
+                        </span>
 
-                <h2>Register for free and never forget your passwords to any of your most used sites</h2>
-                
-                <section>
-                    <section className="feature-card">
-                        <h2 className="feature-title">Free</h2>
-                        <p className="feature-point">No one will ever contact you asking for information.</p>
-                        <p className="feature-point">Your passwords are hashed, salted, and protected from cross-site scripting.</p>
-                    </section>
-
-                    <form 
-                        id="register-form"
-                        onSubmit={this.handleForm}>
-                        <fieldset>
-
-                            <label htmlFor="register-first-name">First name</label>
-                            <input
-                                type="text"
-                                onChange={this.handleFirstName}
-                                placeholder="First name"
-                                required></input>
-
-                            <label htmlFor="register-Last-name">Last name</label>
-                            <input 
-                                type="text"
-                                onChange={this.handleLastName}
-                                placeholder="Last name"
-                                required></input>
-
-                            <label htmlFor="register-email">Email</label>
-                            <input 
-                                type="email" 
-                                id="register-email" 
-                                onChange={this.handleEmail}
-                                placeholder="Email"
-                                required></input>
-
-                            <label htmlFor="register-password">Password</label>
-                            <input 
-                                type="password" 
-                                id="register-password" 
-                                onChange={this.handlePassword}
-                                placeholder="Password"
-                                required></input>
-                            
-                            <div id="password-confirm-box">
-                                {this.validatePassword(this.state.password)}
-                            </div>
-
-                            <label htmlFor="register-confirm-password">Retype your password</label>
-                            <input 
-                                type="password"
-                                id="register-confirm-password"
-                                onChange={this.handleconfirmPassword}
-                                placeholder="Retype your password"
-                                required></input>
-                            <div id="password-matches"></div>
-                            {this.state.password && this.state.confirmPassword ? this.passwordMatch() : ""}
-
-
-                            {this.state.error ? this.errorHandler(this.state.error) : ""}
-
-                            {this.state.registering ? <ReactLoading className="Loading" type={"spin"} color={"purple"}></ReactLoading> : ""}
-
-                            <button 
-                            id="register-submit"
-                            type="submit">Sign Up</button>
-                        </fieldset>
-                    </form>
-                </section>
-
-                
-            </section>
+                        {requirement.label}
+                    </li>
+                ))}
+            </ul>
         );
     };
-};
+
+    render() {
+        const {
+            first_name,
+            last_name,
+            email,
+            password,
+            confirmPassword,
+            showPassword,
+            showConfirmPassword,
+            registering,
+            error
+        } = this.state;
+
+        const passwordsMatch =
+            confirmPassword.length > 0 &&
+            password === confirmPassword;
+
+        const passwordsMismatch =
+            confirmPassword.length > 0 &&
+            password !== confirmPassword;
+
+        return (
+            <main id="register-section">
+                <div className="register-container">
+
+                    <div className="register-heading">
+                        <span className="register-eyebrow">
+                            CREATE YOUR ACCOUNT
+                        </span>
+
+                        <h1>
+                            A simpler way to
+                            <span>manage your passwords.</span>
+                        </h1>
+
+                        <p>
+                            Create your account and start keeping
+                            your important login information organized.
+                        </p>
+                    </div>
+
+                    <div className="register-layout">
+
+                        {/* BENEFITS */}
+                        <aside
+                            className="register-benefits"
+                            aria-labelledby="register-benefits-title"
+                        >
+                            <div className="register-benefits-top">
+                                <span className="register-benefits-label">
+                                    GET STARTED
+                                </span>
+
+                                <h2 id="register-benefits-title">
+                                    Your digital life.
+                                    <span>More organized.</span>
+                                </h2>
+
+                                <p>
+                                    Spend less time remembering
+                                    passwords and more time
+                                    doing what matters.
+                                </p>
+                            </div>
+
+                            <div className="register-benefits-list">
+                                <div className="register-benefit">
+                                    <span className="register-benefit-icon">
+                                        <FontAwesomeIcon icon={faKey} />
+                                    </span>
+
+                                    <div>
+                                        <h3>One Convenient Place</h3>
+                                        <p>
+                                            Keep your account information
+                                            organized and easy to find.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="register-benefit">
+                                    <span className="register-benefit-icon">
+                                        <FontAwesomeIcon icon={faLock} />
+                                    </span>
+
+                                    <div>
+                                        <h3>Simple Account Management</h3>
+                                        <p>
+                                            A clean interface designed
+                                            for everyday use.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="register-benefit">
+                                    <span className="register-benefit-icon">
+                                        <FontAwesomeIcon icon={faShieldAlt} />
+                                    </span>
+
+                                    <div>
+                                        <h3>Privacy-Minded Experience</h3>
+                                        <p>
+                                            Designed with clarity
+                                            and user control in mind.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="register-benefits-footer">
+                                <FontAwesomeIcon icon={faCheck} />
+                                <span>
+                                    Straightforward registration.
+                                    No unnecessary complexity.
+                                </span>
+                            </div>
+                        </aside>
+
+                        {/* FORM */}
+                        <section
+                            className="register-form-card"
+                            aria-labelledby="register-form-title"
+                        >
+                            <div className="register-form-heading">
+                                <h2 id="register-form-title">
+                                    Create your account
+                                </h2>
+
+                                <p>
+                                    Already have an account?
+                                    {" "}
+                                    <Link to="/login">Log in</Link>
+                                </p>
+                            </div>
+
+                            <form
+                                id="register-form"
+                                onSubmit={this.handleForm}
+                            >
+                                <div className="register-name-grid">
+                                    <div className="register-field">
+                                        <label htmlFor="register-first-name">
+                                            First name
+                                        </label>
+
+                                        <input
+                                            id="register-first-name"
+                                            name="first_name"
+                                            type="text"
+                                            value={first_name}
+                                            onChange={this.handleChange}
+                                            autoComplete="given-name"
+                                            placeholder="First name"
+                                            maxLength="100"
+                                            required
+                                        />
+                                    </div>
+
+                                    <div className="register-field">
+                                        <label htmlFor="register-last-name">
+                                            Last name
+                                        </label>
+
+                                        <input
+                                            id="register-last-name"
+                                            name="last_name"
+                                            type="text"
+                                            value={last_name}
+                                            onChange={this.handleChange}
+                                            autoComplete="family-name"
+                                            placeholder="Last name"
+                                            maxLength="100"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="register-field">
+                                    <label htmlFor="register-email">
+                                        Email address
+                                    </label>
+
+                                    <input
+                                        id="register-email"
+                                        name="email"
+                                        type="email"
+                                        value={email}
+                                        onChange={this.handleChange}
+                                        autoComplete="email"
+                                        placeholder="you@example.com"
+                                        required
+                                    />
+                                </div>
+
+                                <div className="register-field">
+                                    <label htmlFor="register-password">
+                                        Password
+                                    </label>
+
+                                    <div className="register-password-input">
+                                        <input
+                                            id="register-password"
+                                            name="password"
+                                            type={
+                                                showPassword
+                                                    ? "text"
+                                                    : "password"
+                                            }
+                                            value={password}
+                                            onChange={this.handleChange}
+                                            autoComplete="new-password"
+                                            placeholder="Create a password"
+                                            aria-describedby="register-password-rules"
+                                            required
+                                        />
+
+                                        <button
+                                            type="button"
+                                            className="register-password-toggle"
+                                            onClick={this.togglePassword}
+                                            aria-label={
+                                                showPassword
+                                                    ? "Hide password"
+                                                    : "Show password"
+                                            }
+                                            aria-pressed={showPassword}
+                                        >
+                                            <FontAwesomeIcon
+                                                icon={
+                                                    showPassword
+                                                        ? faEyeSlash
+                                                        : faEye
+                                                }
+                                            />
+                                        </button>
+                                    </div>
+
+                                    <div id="register-password-rules">
+                                        {this.renderPasswordRequirements()}
+                                    </div>
+                                </div>
+
+                                <div className="register-field">
+                                    <label htmlFor="register-confirm-password">
+                                        Confirm password
+                                    </label>
+
+                                    <div className="register-password-input">
+                                        <input
+                                            id="register-confirm-password"
+                                            name="confirmPassword"
+                                            type={
+                                                showConfirmPassword
+                                                    ? "text"
+                                                    : "password"
+                                            }
+                                            value={confirmPassword}
+                                            onChange={this.handleChange}
+                                            autoComplete="new-password"
+                                            placeholder="Confirm your password"
+                                            aria-describedby="register-match-message"
+                                            required
+                                        />
+
+                                        <button
+                                            type="button"
+                                            className="register-password-toggle"
+                                            onClick={this.toggleConfirmPassword}
+                                            aria-label={
+                                                showConfirmPassword
+                                                    ? "Hide confirmation password"
+                                                    : "Show confirmation password"
+                                            }
+                                            aria-pressed={showConfirmPassword}
+                                        >
+                                            <FontAwesomeIcon
+                                                icon={
+                                                    showConfirmPassword
+                                                        ? faEyeSlash
+                                                        : faEye
+                                                }
+                                            />
+                                        </button>
+                                    </div>
+
+                                    <p
+                                        id="register-match-message"
+                                        className={
+                                            passwordsMatch
+                                                ? "register-match register-match--valid"
+                                                : passwordsMismatch
+                                                    ? "register-match register-match--invalid"
+                                                    : "register-match"
+                                        }
+                                    >
+                                        {passwordsMatch
+                                            ? "✓ Passwords match"
+                                            : passwordsMismatch
+                                                ? "Passwords do not match"
+                                                : ""}
+                                    </p>
+                                </div>
+
+                                {error && (
+                                    <div
+                                        className="register-error"
+                                        role="alert"
+                                    >
+                                        <p>{error}</p>
+
+                                        {error === "You seem to have account already. Log in" && (
+                                            <Link to="/login">
+                                                Go to login
+                                            </Link>
+                                        )}
+                                    </div>
+                                )}
+
+                                <button
+                                    id="register-submit"
+                                    type="submit"
+                                    disabled={registering}
+                                >
+                                    {registering ? (
+                                        <>
+                                            <ReactLoading
+                                                type="spin"
+                                                color="#ffffff"
+                                                width={20}
+                                                height={20}
+                                            />
+                                            Creating Account...
+                                        </>
+                                    ) : (
+                                        <>
+                                            Create Account
+                                            <FontAwesomeIcon icon={faArrowRight} />
+                                        </>
+                                    )}
+                                </button>
+                            </form>
+                        </section>
+                    </div>
+
+                    <p className="register-bottom-note">
+                        Already registered?
+                        {" "}
+                        <Link to="/login">Sign in to your account</Link>
+                    </p>
+                </div>
+            </main>
+        );
+    }
+}
